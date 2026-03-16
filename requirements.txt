@@ -1,0 +1,4 @@
+shodan
+PyQt6
+pandas
+openpyxl
