@@ -1,0 +1,25 @@
+# VCS
+git/
+.git/
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Local environments
+venv/
+.venv/
+
+# Local runtime/output data
+datacontainer/
+data/
+
+# Local config/secrets
+config/config.json
+
+# OS/editor
+.vscode/
+.idea/
+.DS_Store
