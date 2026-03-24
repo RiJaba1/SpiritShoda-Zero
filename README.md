@@ -9,10 +9,29 @@ Create custom image:
 docker build -t shodan .
 ```
 
-Run container:
+Run container (recommended for strict X11 environments, e.g. OpenSUSE):
 
 ```bash
-docker run -it --rm -d -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v ./datacontainer:/app/data shodan
+docker run --rm -it \
+	-e DISPLAY=$DISPLAY \
+	-e XAUTHORITY=/tmp/.Xauthority \
+	-v /tmp/.X11-unix:/tmp/.X11-unix \
+	-v $XAUTHORITY:/tmp/.Xauthority:ro \
+	-v ./datacontainer:/app/data \
+	shodan
 ```
 
-> Please note you may need to execute `xhost +local:docker` before running the container.
+Alternative command (may work on less restrictive setups):
+
+```bash
+docker run -it --rm -d \
+	-e DISPLAY=$DISPLAY \
+	-v /tmp/.X11-unix:/tmp/.X11-unix \
+	-v ./datacontainer:/app/data \
+	shodan
+```
+
+Troubleshooting:
+
+- If you see errors such as "Authorization required" or "could not connect to display", use the recommended command with `XAUTHORITY`.
+- `xhost` may not be installed by default on some distros.
